@@ -1,3 +1,22 @@
+use std::cmp::PartialEq;
+
+pub struct Student {
+    pub number: StudentId,
+    name: StudentName,
+    colors: StudentColors,
+}
+
+impl Student {
+    pub fn new (number: StudentId, name: StudentName, colors: StudentColors) -> Self {
+        Self {
+            number,
+            name,
+            colors
+        }
+    }
+}
+
+#[derive(PartialEq, Clone)]
 pub struct StudentId(u16);
 
 impl TryFrom<u16> for StudentId {
@@ -57,6 +76,7 @@ impl TryFrom<Vec<String>> for StudentColors {
 
 enum StudentColor {
     Blue,
+    Red,
 }
 
 impl TryFrom<String> for StudentColor {
@@ -65,6 +85,7 @@ impl TryFrom<String> for StudentColor {
     fn try_from(t: String) -> Result<Self, Self::Error> {
         match t.as_str() {
             "Blue" => Ok(Self::Blue),
+            "Red" => Ok(Self::Red),
             _ => Err(()),
         }
     }
