@@ -11,6 +11,7 @@ enum Response {
     Ok(u16),
     BadRequest,
     Conflict,
+    Error,
 }
 
 fn execute (repo: &mut dyn Repository, req: Request) -> Response {
@@ -22,6 +23,7 @@ fn execute (repo: &mut dyn Repository, req: Request) -> Response {
         (Ok(number), Ok(name), Ok(types)) => match repo.insert(number, name, types) {
             Insert::Ok(number) => Response::Ok(u16::from(number)),
             Insert::Conflict => Response::Conflict,
+            Insert::Error => Response::Error,
         },
         _ => Response::BadRequest,
     }
@@ -95,6 +97,6 @@ mod tests {
 
     #[test]
     fn return_error_when_unexpected_error_happens() {
-        
+
     }
 }
