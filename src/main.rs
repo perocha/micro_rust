@@ -1,3 +1,6 @@
+use crate::domain::create_student::*;
+mod domain;
+
 fn main() {
-    println!("Hello, world! Updated");
+    hello_world();
 }
