@@ -29,10 +29,6 @@ fn execute (repo: &mut dyn Repository, req: Request) -> Response {
     }
 }
 
-pub fn hello_world () {
-    println!("create_something::Hello world!!");
-}
-
 
 #[cfg(test)]
 mod tests {
