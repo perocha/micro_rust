@@ -1,5 +1,5 @@
 mod health;
-mod create_student;
+mod create_order;
 
 pub fn serve (url: &str) {
     rouille::start_server(url, move |req| {
@@ -8,7 +8,7 @@ pub fn serve (url: &str) {
                 health::serve()
             },
             (POST) (/) => {
-                create_student::serve(req)
+                create_order::serve(req)
             },
             _ => {
                 rouille::Response::from(Status::NotFound)

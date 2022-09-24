@@ -1,25 +1,25 @@
 use std::cmp::PartialEq;
 
-pub struct Student {
-    pub number: StudentId,
-    name: StudentName,
-    colors: StudentColors,
+pub struct Order {
+    pub order_id: OrderId,
+    description: OrderDescription,
+    order_types: OrderTypes,
 }
 
-impl Student {
-    pub fn new (number: StudentId, name: StudentName, colors: StudentColors) -> Self {
+impl Order {
+    pub fn new (order_id: OrderId, description: OrderDescription, order_types: OrderTypes) -> Self {
         Self {
-            number,
-            name,
-            colors
+            order_id,
+            description,
+            order_types
         }
     }
 }
 
 #[derive(PartialEq, Clone)]
-pub struct StudentId(u16);
+pub struct OrderId(u16);
 
-impl TryFrom<u16> for StudentId {
+impl TryFrom<u16> for OrderId {
     type Error = ();
 
     fn try_from(n: u16) -> Result<Self, Self::Error> {
@@ -31,16 +31,16 @@ impl TryFrom<u16> for StudentId {
     }
 }
 
-impl From<StudentId> for u16 {
-    fn from(n: StudentId) -> u16 {
+impl From<OrderId> for u16 {
+    fn from(n: OrderId) -> u16 {
         n.0
     }
 }
 
 
-pub struct StudentName(String);
+pub struct OrderDescription(String);
 
-impl TryFrom<String> for StudentName {
+impl TryFrom<String> for OrderDescription {
     type Error = ();
 
     fn try_from(n: String) -> Result<Self, Self::Error> {
@@ -53,9 +53,9 @@ impl TryFrom<String> for StudentName {
 }
 
 
-pub struct StudentColors(Vec<StudentColor>);
+pub struct OrderTypes(Vec<OrderType>);
 
-impl TryFrom<Vec<String>> for StudentColors {
+impl TryFrom<Vec<String>> for OrderTypes {
     type Error = ();
 
     fn try_from(ts: Vec<String>) -> Result<Self, Self::Error> {
@@ -64,7 +64,7 @@ impl TryFrom<Vec<String>> for StudentColors {
         } else {
             let mut pts = vec![];
             for t in ts.iter() {
-                match StudentColor::try_from(String::from(t)) {
+                match OrderType::try_from(String::from(t)) {
                     Ok(pt) => pts.push(pt),
                     _ => return Err(()),
                 }
@@ -74,12 +74,12 @@ impl TryFrom<Vec<String>> for StudentColors {
     }
 }
 
-enum StudentColor {
+enum OrderType {
     Blue,
     Red,
 }
 
-impl TryFrom<String> for StudentColor {
+impl TryFrom<String> for OrderType {
     type Error = ();
 
     fn try_from(t: String) -> Result<Self, Self::Error> {
